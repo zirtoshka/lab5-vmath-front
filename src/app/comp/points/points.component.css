@@ -1,0 +1,19 @@
+p{
+
+  border: 3px solid deeppink;
+}
+.point {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  gap: 10%;
+
+}
+
+.labels {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  gap: 55%;
+  padding-left: 15%
+}

@@ -1,0 +1,8 @@
+.disp{
+  display: flex;
+  flex-direction: row;
+  gap: 5%
+}
+.res{
+  border-color: blue;
+}

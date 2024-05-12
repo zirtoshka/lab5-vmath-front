@@ -1,0 +1,12 @@
+<div class="disp">
+
+<app-graph #graphComponent></app-graph>
+
+
+<app-points #pointsComponent (choseEvent)="graphComponent.approxDraw($event)"
+            (newPointEvent)="graphComponent.allPointsDraw($event)"></app-points>
+</div>
+
+<div class="res" *ngFor="let s of appService.dataUser">
+  {{s}}
+</div>
