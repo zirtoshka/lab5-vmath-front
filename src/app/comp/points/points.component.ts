@@ -1,4 +1,4 @@
-import {Component, EventEmitter, inject, Output} from '@angular/core';
+import {Component, EventEmitter, inject, input, Output} from '@angular/core';
 import {AppService} from "../../app.service";
 import {error} from "@angular/compiler-cli/src/transformers/util";
 import {Respon} from "../../response";
@@ -35,17 +35,26 @@ export class PointsComponent {
   readonly maxPoints = 12;
   readonly minPoints = 2;
 
+  xValue :FormGroup;
+
   constructor(private fb: FormBuilder) {
+
     for (let i = 0; i < this.minPoints; i++) {
       this.addPoint();
     }
+    this.xValue=fb.group({
+      xValue: [0, [Validators.required, Validators.pattern('-?\\d+([\\.,]\\d+)?')]]
+    })
+
+
   }
 
   addPoint() {
     if (this.pointsForm.length < this.maxPoints) {
       const pointFormGroup = this.fb.group({
         x: [0, [Validators.required, Validators.pattern('-?\\d+([\\.,]\\d+)?')]],
-        y: [0, [Validators.required, Validators.pattern('-?\\d+([\\.,]\\d+)?')]]
+        y: [0, [Validators.required, Validators.pattern('-?\\d+([\\.,]\\d+)?')]],
+
       });
       this.pointsForm.push(pointFormGroup);
       if (pointFormGroup.value.x != undefined && pointFormGroup.value.y != undefined) {
@@ -69,14 +78,15 @@ export class PointsComponent {
 
     let x: number[] = [];
     let y: number[] = [];
+    let interpolX=this.xValue.value.xValue;
     this.pointsForm.every(point => x.push(point.value.x));
     this.pointsForm.every(point => y.push(point.value.y));
 
-    this.appService.approxRequest({x, y}).subscribe({
+    this.appService.interpolRequest({x, y, interpolX}).subscribe({
       next: (response) => {
+        this.choseEvent.emit(response);
         this.newPointEvent.emit({x, y});
 
-        this.choseEvent.emit(response);
         this.appService.dataUser = this.appService.getStringRes(response);
 
       },
@@ -92,4 +102,6 @@ export class PointsComponent {
     })
   }
 
+  protected readonly input = input;
+  protected readonly isNaN = isNaN;
 }

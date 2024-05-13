@@ -31,7 +31,17 @@
   </div>
 </div>
 <button (click)="addPoint()">+</button>
+<br>
 
+<div [formGroup]="xValue">
+  <label>введите значение точки интерполяции X:</label>
 
-<button type="submit" [disabled]="!checkPoints() " (click)="sendPoints()">интерполяция!</button>
+  <input type="number" name="xValue" formControlName="xValue"/>
+
+  <div *ngIf="xValue.controls['xValue'].invalid">
+    <div class="alert">не норм х((</div>
+  </div>
+</div>
+
+<button type="submit" [disabled]="!checkPoints() || xValue.controls['xValue'].invalid" (click)="sendPoints()">интерполяция!</button>
 </div>

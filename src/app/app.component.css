@@ -1,7 +1,8 @@
 .disp{
   display: flex;
   flex-direction: row;
-  gap: 5%
+  gap: 5%;
+  justify-content: center;
 }
 .res{
   border-color: blue;

@@ -14,7 +14,7 @@ export class AppService {
   constructor(private httpClient: HttpClient) {
   }
 
-  approxRequest(req: Req ){
+  interpolRequest(req: Req ){
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
 
     return this.httpClient
@@ -27,9 +27,10 @@ export class AppService {
     for ( let i=0;i<5;i++){
       if(res[i]!=null){
         resStr.push(naming[i]+": "+res[i]);
+      }else {
+        resStr.push(naming[i]+": данные не позволяют использовать этот метод((");
       }
     }
-    console.info(resStr)
 
 
     return resStr;

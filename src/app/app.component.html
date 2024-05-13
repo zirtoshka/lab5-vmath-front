@@ -1,12 +1,22 @@
-<div class="disp">
+<div>
+  <div class="disp">
 
-<app-graph #graphComponent></app-graph>
+    <app-graph #graphComponent></app-graph>
 
 
-<app-points #pointsComponent (choseEvent)="graphComponent.approxDraw($event)"
-            (newPointEvent)="graphComponent.allPointsDraw($event)"></app-points>
+    <app-points #pointsComponent (choseEvent)="graphComponent.interpolationDraw($event)"
+                (newPointEvent)="graphComponent.allPointsDraw($event)"></app-points>
+
+
+  </div>
+  <div class="filik">
+    <app-filik #filikComponent (choseEvent)="graphComponent.interpolationDraw($event)"
+               (newPointEvent)="graphComponent.allPointsDraw($event)"></app-filik>
+  </div>
+
+
 </div>
-
 <div class="res" *ngFor="let s of appService.dataUser">
   {{s}}
 </div>
+
